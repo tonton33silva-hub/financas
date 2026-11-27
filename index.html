@@ -101,6 +101,18 @@ function padroes(){$("dl").value=$("dl").value||hoje();$("ven").value=$("ven").v
 async function listas(){var v=(await api("/worksheets('Cadastros')/range(address='A4:G30')?$select=values")).values;function c(i){return v.map(function(x){return x[i]}).filter(function(x){return x!==""})}
 fill("cat",c(0));fill("tipo",[""].concat(c(2)));fill("cla",[""].concat(c(4)));fill("nat",c(6));padroes();aplicaNat()}
 async function carregar(){var v=(await api("/tables('Lancamentos')/range?$select=values")).values;ROWS=[];
+ var l = [
+  serial($("dl").value),
+  $("ds").value,
+  $("nat").value,
+  $("cat").value,
+  isDesp() ? $("tipo").value : "",
+  isDesp() ? $("cla").value : "",
+  serial($("ven").value),
+  serial($("pag").value),
+  parseFloat($("val").value),
+  "", "", "", "", "", ""
+];                         
 for(var i=1;i<v.length;i++){if(v[i][1]===""&&v[i][8]==="")continue;ROWS.push({i:i,r:v[i]})}render()}
 function render(){var d=new Date(),A=d.getFullYear(),M=d.getMonth()+1,rec=0,des=0,pag=0,atr=0,cats={};
 ROWS.forEach(function(o){var x=o.r,t=Number(x[11])||0;if(x[13]==A&&x[14]==M){if(x[2]==="Receita")rec+=t;else{des+=t;cats[x[3]]=(cats[x[3]]||0)+t}}
