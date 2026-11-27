@@ -123,7 +123,6 @@ await api("/worksheets('Lançamentos')/range(address='B"+r+"')","PATCH",{values:
 await api("/worksheets('Lançamentos')/range(address='G"+r+":I"+r+"')","PATCH",{values:[[serial($("even").value),serial($("epag").value),parseFloat($("eval").value)]]});
 $("md").style.display="none";msg("Alterado ✓");carregar()}catch(e){msg("Erro: "+e.message,true)}};
 $("f").onsubmit=async function(ev){ev.preventDefault();if(!app)return;try{var l=[serial($("dl").value),$("ds").value,$("nat").value,$("cat").value,isDesp()?$("tipo").value:"",isDesp()?$("cla").value:"",serial($("ven").value),serial($("pag").value),parseFloat($("val").value)];
-console.log("Valores montados:", l.length, l);
 await api("/tables('Lancamentos')/rows/add","POST",{index:null,values:[l]});msg("Salvo na planilha ✓");$("f").reset();padroes();aplicaNat();carregar()}catch(e){msg("Erro: "+e.message,true)}};
 function f2(s){return s?s.split("-").reverse().join("/"):""}
 $("copiar").onclick=function(){if(!$("f").reportValidity())return;var t=[f2($("dl").value),$("ds").value,$("nat").value,$("cat").value,isDesp()?$("tipo").value:"",isDesp()?$("cla").value:"",f2($("ven").value),f2($("pag").value),String($("val").value).replace(".",",")].join("\t");navigator.clipboard?navigator.clipboard.writeText(t).then(function(){msg("Linha copiada ✓")}):prompt("Copie:",t)};
