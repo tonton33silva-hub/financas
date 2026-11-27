@@ -76,17 +76,16 @@ nav a.on{color:#fff;background:#6c8cff30}nav a span{display:block;font-size:20px
 <nav><a href="#" data-p="home" class="on"><span>◉</span>Painel</a><a href="#" data-p="contas"><span>⏰</span>Contas</a><a href="#" data-p="novo"><span>＋</span>Novo</a><a href="#" data-p="hist"><span>☰</span>Histórico</a></nav>
 <script>
 // ===== CONFIGURE AQUI =====
-var CLIENT_ID= "bc1806cd-2b9d-41b4-97e3-a9b642d2f254";
+var CLIENT_ID="bc1806cd-2b9d-41b4-97e3-a9b642d2f254";
 var FILE_ID="DC05F443AA2E7B0B!s123ff52660fc4c63b71be9602a6c0299";
 // ==========================
 var G="https://graph.microsoft.com/v1.0/me/drive/items/"+encodeURIComponent(FILE_ID)+"/workbook",scopes=["Files.ReadWrite","User.Read"];
 function $(i){return document.getElementById(i)}
-function semCfg(){return CLIENT_ID.indexOf("bc1806cd-2b9d-41b4-97e3-a9b642d2f254")===0}
+function semCfg(){return CLIENT_ID.indexOf("COLE_AQUI")===0}
 var app=semCfg()?null:new msal.PublicClientApplication({auth:{clientId:CLIENT_ID,authority:"https://login.microsoftonline.com/consumers",redirectUri:location.href.split("?")[0].split("#")[0]},cache:{cacheLocation:"localStorage"}});
 var ROWS=[],cur=null;
 function msg(t,e){var m=$("msg");m.textContent=t;m.style.color=e?"#fb7185":"#34d399";m.style.display="block";setTimeout(function(){m.style.display="none"},3500)}
-async function token(){var a=app.getAllAccounts()[0];try{return(await app.acquireTokenSilent({scopes:scopes,account:a})).accessToken}catch (_) {await app.loginRedirect({ scopes });
-throw new Error("Atualizando acesso"
+async function token(){var a=app.getAllAccounts()[0];try{return(await app.acquireTokenSilent({scopes:scopes,account:a})).accessToken}catch(e){return(await app.loginPopup({scopes:scopes})).accessToken}}
 async function api(p,m,b){var t=await token();var r=await fetch(G+p,{method:m||"GET",headers:{Authorization:"Bearer "+t,"Content-Type":"application/json"},body:b?JSON.stringify(b):undefined});if(!r.ok)throw new Error(await r.text());return r.json()}
 function serial(s){if(!s)return"";var p=s.split("-");return Math.round(Date.UTC(+p[0],+p[1]-1,+p[2])/864e5)+25569}
 function iso(n){if(n===""||n==null)return"";return new Date((n-25569)*864e5).toISOString().slice(0,10)}
