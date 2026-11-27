@@ -76,12 +76,12 @@ nav a.on{color:#fff;background:#6c8cff30}nav a span{display:block;font-size:20px
 <nav><a href="#" data-p="home" class="on"><span>◉</span>Painel</a><a href="#" data-p="contas"><span>⏰</span>Contas</a><a href="#" data-p="novo"><span>＋</span>Novo</a><a href="#" data-p="hist"><span>☰</span>Histórico</a></nav>
 <script>
 // ===== CONFIGURE AQUI =====
-var CLIENT_ID="c498b246-6d14-4cbe-875d-d8491f36a65d";
-var FILE_ID="DC05F443AA2E7B0B%21s123ff52660fc4c63b71be9602a6c0299&driveId=DC05F443AA2E7B0B";
+var CLIENT_ID= "bc1806cd-2b9d-41b4-97e3-a9b642d2f254";
+var FILE_ID="DC05F443AA2E7B0B!s123ff52660fc4c63b71be9602a6c0299";
 // ==========================
 var G="https://graph.microsoft.com/v1.0/me/drive/items/"+encodeURIComponent(FILE_ID)+"/workbook",scopes=["Files.ReadWrite","User.Read"];
 function $(i){return document.getElementById(i)}
-function semCfg(){return CLIENT_ID.indexOf("c498b246-6d14-4cbe-875d-d8491f36a65d")===0}
+function semCfg(){return CLIENT_ID.indexOf("COLE_AQUI")===0}
 var app=semCfg()?null:new msal.PublicClientApplication({auth:{clientId:CLIENT_ID,authority:"https://login.microsoftonline.com/consumers",redirectUri:location.href.split("?")[0].split("#")[0]},cache:{cacheLocation:"localStorage"}});
 var ROWS=[],cur=null;
 function msg(t,e){var m=$("msg");m.textContent=t;m.style.color=e?"#fb7185":"#34d399";m.style.display="block";setTimeout(function(){m.style.display="none"},3500)}
@@ -100,7 +100,7 @@ $("nat").onchange=aplicaNat;
 function padroes(){$("dl").value=$("dl").value||hoje();$("ven").value=$("ven").value||hoje()}
 async function listas(){var v=(await api("/worksheets('Cadastros')/range(address='A4:G30')?$select=values")).values;function c(i){return v.map(function(x){return x[i]}).filter(function(x){return x!==""})}
 fill("cat",c(0));fill("tipo",[""].concat(c(2)));fill("cla",[""].concat(c(4)));fill("nat",c(6));padroes();aplicaNat()}
-async function carregar(){var v=(await api("/tables('Lancamentos')/range?$select=values")).values;ROWS=[];                         
+async function carregar(){var v=(await api("/tables('Lancamentos')/range?$select=values")).values;ROWS=[];
 for(var i=1;i<v.length;i++){if(v[i][1]===""&&v[i][8]==="")continue;ROWS.push({i:i,r:v[i]})}render()}
 function render(){var d=new Date(),A=d.getFullYear(),M=d.getMonth()+1,rec=0,des=0,pag=0,atr=0,cats={};
 ROWS.forEach(function(o){var x=o.r,t=Number(x[11])||0;if(x[13]==A&&x[14]==M){if(x[2]==="Receita")rec+=t;else{des+=t;cats[x[3]]=(cats[x[3]]||0)+t}}
