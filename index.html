@@ -1,23 +1,4 @@
 <!DOCTYPE html>
-async function iniciar() {
-  try {
-    await app.handleRedirectPromise();
-
-    const account = app.getAllAccounts()[0];
-    if (!account) {
-      await app.loginRedirect({ scopes });
-      return;
-    }
-
-    $("login").style.display = "none";
-    await listas();
-    await carregar();
-  } catch (e) {
-    msg("Erro: " + e.message, true);
-  }
-}
-
-$("login").onclick = iniciar;
 <html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b1020"><meta name="apple-mobile-web-app-capable" content="yes">
