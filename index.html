@@ -76,12 +76,12 @@ nav a.on{color:#fff;background:#6c8cff30}nav a span{display:block;font-size:20px
 <nav><a href="#" data-p="home" class="on"><span>◉</span>Painel</a><a href="#" data-p="contas"><span>⏰</span>Contas</a><a href="#" data-p="novo"><span>＋</span>Novo</a><a href="#" data-p="hist"><span>☰</span>Histórico</a></nav>
 <script>
 // ===== CONFIGURE AQUI =====
-var CLIENT_ID= "12c73572-f32d-43b6-8599-de4b7fbbbb60";
+var CLIENT_ID="bc1806cd-2b9d-41b4-97e3-a9b642d2f254";
 var FILE_ID="DC05F443AA2E7B0B!s123ff52660fc4c63b71be9602a6c0299";
 // ==========================
 var G="https://graph.microsoft.com/v1.0/me/drive/items/"+encodeURIComponent(FILE_ID)+"/workbook",scopes=["Files.ReadWrite","User.Read"];
 function $(i){return document.getElementById(i)}
-function semCfg(){return CLIENT_ID.indexOf("12c73572-f32d-43b6-8599-de4b7fbbbb60")===0}
+function semCfg(){return CLIENT_ID.indexOf("bc1806cd-2b9d-41b4-97e3-a9b642d2f254")===0}
 var app=semCfg()?null:new msal.PublicClientApplication({auth:{clientId:CLIENT_ID,authority:"https://login.microsoftonline.com/consumers",redirectUri:location.href.split("?")[0].split("#")[0]},cache:{cacheLocation:"localStorage"}});
 var ROWS=[],cur=null;
 function msg(t,e){var m=$("msg");m.textContent=t;m.style.color=e?"#fb7185":"#34d399";m.style.display="block";setTimeout(function(){m.style.display="none"},3500)}
